@@ -29,7 +29,6 @@ async function createLabel(auth) {
   console.log('Function createLabel has been called');
   const gmail = google.gmail({ version: 'v1', auth })
 
-
   try {
     const response = await gmail.users.labels.create({
       userId: 'me',
@@ -43,15 +42,9 @@ async function createLabel(auth) {
     return response.data.id;
 
   } catch (err) {
-    if (err.code === 409) {
-      const res = await gmail.users.labels.list({
-        userId: 'me',
-      });
-      const label = res.data.labels.find((label) => label.name === LABEL_NAME);
-      return label.id;
-    } else {
-      throw err;
-    }
+
+    throw err;
+
   }
 }
 
